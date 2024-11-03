@@ -1,0 +1,67 @@
+<!-- views/users/login.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <style>
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    .error {
+      color: #f44336;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    <% if (locals.error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+    <form action="/users/login" method="POST">
+      <div class="form-group">
+        <label>Username:</label>
+        <input type="text" name="username" required>
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" name="password" required>
+      </div>
+      <button type="submit" class="button">Login</button>
+    </form>
+    <p style="text-align: center; margin-top: 20px;">
+      Don't have an account? <a href="/users/register">Register</a>
+    </p>
+    <p style="text-align: center;">
+      <a href="/">Back to Home</a>
+    </p>
+  </div>
+</body>
+</html>

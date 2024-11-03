@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Profile</title>
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .nav {
+      background-color: #333;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    .nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      margin-right: 10px;
+    }
+    .nav a:hover {
+      background-color: #555;
+    }
+    .profile-card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .profile-header {
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
+    .profile-info {
+      margin-bottom: 10px;
+    }
+    .label {
+      font-weight: bold;
+      color: #666;
+      width: 120px;
+      display: inline-block;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px 0;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="/">Home</a>
+    <a href="/users/me">My Profile</a>
+    <a href="/products">Products</a>
+    <a href="/users/logout" style="float: right;">Logout</a>
+  </div>
+  <div class="container">
+    <div class="profile-card">
+      <div class="profile-header">
+        <h1>My Profile</h1>
+      </div>
+      <div class="profile-info">
+        <p><span class="label">Username:</span> <%= user.username %></p>
+        <p><span class="label">Email:</span> <%= user.email %></p>
+        <p><span class="label">Member since:</span> <%= user.createdAt.toLocaleDateString() %></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
