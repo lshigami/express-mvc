@@ -1,64 +1,87 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Home</title>
-  <style>
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .nav {
-      background-color: #333;
-      padding: 10px;
-      margin-bottom: 20px;
-    }
-    .nav a {
-      color: white;
-      text-decoration: none;
-      padding: 10px 15px;
-      margin-right: 10px;
-    }
-    .nav a:hover {
-      background-color: #555;
-    }
-    .welcome-section {
-      text-align: center;
-      margin-top: 50px;
-    }
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
-      margin: 10px;
-      background-color: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-  </style>
-</head>
-<body>
-  <% if (locals.userId) { %>
+  <head>
+    <title>Home</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-top: 80px;
+      }
+      .nav {
+        background-color: #333;
+        padding: 10px;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Ensure padding is included in element's width */
+      }
+      .nav .left-links,
+      .nav .right-links {
+        display: flex;
+        align-items: center;
+      }
+      .nav a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 15px;
+        margin-right: 10px;
+      }
+      .nav a:hover {
+        background-color: #555;
+      }
+      .welcome-section {
+        text-align: center;
+        margin-top: 50px;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        background-color: #4caf50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <% if (locals.userId) { %>
     <div class="nav">
-      <a href="/">Home</a>
-      <a href="/users/me">My Profile</a>
-      <a href="/products">Products</a>
-      <a href="/users/logout" style="float: right;">Logout</a>
+      <div class="left-links">
+        <a href="/">Home</a>
+        <a href="/users/me">My Profile</a>
+        <a href="/products">Products</a>
+      </div>
+      <div class="right-links">
+        <a href="/users/logout">Logout</a>
+      </div>
     </div>
-  <% } %>
-  <div class="container">
-    <div class="welcome-section">
-      <h1>Welcome to Our Shop</h1>
-      <% if (locals.username) { %>
+    <% } %>
+    <div class="container">
+      <div class="welcome-section">
+        <h1>Welcome to Our Shop</h1>
+        <% if (locals.username) { %>
         <p>Welcome back, <%= username %>!</p>
         <a href="/users/me" class="button">My Profile</a>
         <a href="/products" class="button">View Products</a>
-      <% } else { %>
+        <% } else { %>
         <p>Please login or register to continue</p>
         <a href="/users/login" class="button">Login</a>
         <a href="/users/register" class="button">Register</a>
-      <% } %>
+        <% } %>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
