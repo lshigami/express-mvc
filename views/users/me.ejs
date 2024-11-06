@@ -2,76 +2,9 @@
 <html>
   <head>
     <title>My Profile</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        padding-top: 80px;
-      }
-      .nav {
-        background-color: #333;
-        padding: 10px;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* Ensure padding is included in element's width */
-      }
-      .nav .left-links,
-      .nav .right-links {
-        display: flex;
-        align-items: center;
-      }
-      .nav a {
-        color: white;
-        text-decoration: none;
-        padding: 10px 15px;
-        margin-right: 10px;
-      }
-      .nav a:hover {
-        background-color: #555;
-      }
-      .profile-card {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin-top: 20px;
-      }
-      .profile-header {
-        border-bottom: 1px solid #eee;
-        padding-bottom: 15px;
-        margin-bottom: 15px;
-      }
-      .profile-info {
-        margin-bottom: 10px;
-      }
-      .label {
-        font-weight: bold;
-        color: #666;
-        width: 120px;
-        display: inline-block;
-      }
-      .button {
-        display: inline-block;
-        padding: 10px 20px;
-        margin: 10px 0;
-        background-color: #4caf50;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-    </style>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   </head>
   <body>
     <div class="nav">
@@ -84,18 +17,49 @@
         <a href="/users/logout">Logout</a>
       </div>
     </div>
+    
     <div class="container">
       <div class="profile-card">
         <div class="profile-header">
+          <div class="profile-avatar">
+            <i class="fas fa-user-circle"></i>
+          </div>
           <h1>My Profile</h1>
         </div>
+        
         <div class="profile-info">
-          <p><span class="label">Username:</span> <%= user.username %></p>
-          <p><span class="label">Email:</span> <%= user.email %></p>
-          <p>
-            <span class="label">Member since:</span> <%=
-            user.createdAt.toLocaleDateString() %>
-          </p>
+          <div class="info-item">
+            <div class="info-label">
+              <i class="fas fa-user"></i>
+              <span>Username</span>
+            </div>
+            <div class="info-value"><%= user.username %></div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-label">
+              <i class="fas fa-envelope"></i>
+              <span>Email</span>
+            </div>
+            <div class="info-value"><%= user.email %></div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-label">
+              <i class="fas fa-calendar-alt"></i>
+              <span>Member since</span>
+            </div>
+            <div class="info-value"><%= user.createdAt.toLocaleDateString() %></div>
+          </div>
+        </div>
+
+        <div class="profile-actions">
+          <a href="/users/edit" class="button">
+            <i class="fas fa-edit"></i> Edit Profile
+          </a>
+          <a href="/users/change-password" class="button secondary">
+            <i class="fas fa-key"></i> Change Password
+          </a>
         </div>
       </div>
     </div>

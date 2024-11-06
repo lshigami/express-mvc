@@ -2,70 +2,9 @@
 <html>
   <head>
     <title>Products</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        padding-top: 80px;
-      }
-      .nav {
-        background-color: #333;
-        padding: 10px;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* Ensure padding is included in element's width */
-      }
-      .nav .left-links,
-      .nav .right-links {
-        display: flex;
-        align-items: center;
-      }
-      .nav a {
-        color: white;
-        text-decoration: none;
-        padding: 10px 15px;
-        margin-right: 10px;
-      }
-      .nav a:hover {
-        background-color: #555;
-      }
-      .products {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-      }
-      .product {
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 5px;
-      }
-      .button {
-        display: inline-block;
-        padding: 10px 20px;
-        margin: 5px;
-        background-color: #4caf50;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-      }
-      .delete-button {
-        background-color: #f44336;
-      }
-    </style>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   </head>
   <body>
     <div class="nav">
@@ -79,22 +18,28 @@
       </div>
     </div>
     <div class="container">
-      <h1>Products</h1>
-      <a href="/products/new" class="button">Add New Product</a>
+      <div class="card">
+        <h1>Products</h1>
+        <a href="/products/new" class="button">
+          <i class="fas fa-plus"></i> Add New Product
+        </a>
+      </div>
       <div class="products">
         <% products.forEach(product => { %>
-        <div class="product">
+        <div class="product card">
           <h2><%= product.name %></h2>
           <p><%= product.description %></p>
-          <p>Price: $<%= product.price %></p>
-          <a href="/products/<%= product.id %>" class="button">View Details</a>
-          <form
-            action="/products/<%= product.id %>/delete"
-            method="POST"
-            style="display: inline"
-          >
-            <button type="submit" class="button delete-button">Delete</button>
-          </form>
+          <p class="price">Price: $<%= product.price %></p>
+          <div class="button-group">
+            <a href="/products/<%= product.id %>" class="button">
+              <i class="fas fa-eye"></i> View 
+            </a>
+            <form action="/products/<%= product.id %>/delete" method="POST" style="display: inline">
+              <button type="submit" class="button delete-button">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </form>
+          </div>
         </div>
         <% }) %>
       </div>
