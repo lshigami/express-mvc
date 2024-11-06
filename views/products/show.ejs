@@ -2,13 +2,35 @@
 <html>
 <head>
   <title><%= product.name %></title>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  <h1><%= product.name %></h1>
-  <div class="product-details">
-    <p><%= product.description %></p>
-    <p>Price: $<%= product.price %></p>
-    <a href="/products">Back to Products</a>
+  <div class="nav">
+    <div class="left-links">
+      <a href="/">Home</a>
+      <a href="/users/me">My Profile</a>
+      <a href="/products">Products</a>
+    </div>
+    <div class="right-links">
+      <a href="/users/logout">Logout</a>
+    </div>
+  </div>
+  <div class="container">
+    <div class="card">
+      <h1><%= product.name %></h1>
+      <div class="product-details">
+        <p><%= product.description %></p>
+        <p class="price">Price: $<%= product.price %></p>
+        <div class="button-group">
+          <a href="/products/<%= product.id %>/edit" class="button">
+            <i class="fas fa-edit"></i> Edit
+          </a>
+          <a href="/products" class="button">
+            <i class="fas fa-arrow-left"></i> Back to Products
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>

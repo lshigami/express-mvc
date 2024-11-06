@@ -1,60 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Home</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        padding-top: 80px;
-      }
-      .nav {
-        background-color: #333;
-        padding: 10px;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* Ensure padding is included in element's width */
-      }
-      .nav .left-links,
-      .nav .right-links {
-        display: flex;
-        align-items: center;
-      }
-      .nav a {
-        color: white;
-        text-decoration: none;
-        padding: 10px 15px;
-        margin-right: 10px;
-      }
-      .nav a:hover {
-        background-color: #555;
-      }
-      .welcome-section {
-        text-align: center;
-        margin-top: 50px;
-      }
-      .button {
-        display: inline-block;
-        padding: 10px 20px;
-        margin: 10px;
-        background-color: #4caf50;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-    </style>
+    <title>Welcome to Our Shop</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
     <% if (locals.userId) { %>
@@ -65,23 +16,166 @@
         <a href="/products">Products</a>
       </div>
       <div class="right-links">
+        <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
         <a href="/users/logout">Logout</a>
       </div>
     </div>
     <% } %>
+
     <div class="container">
-      <div class="welcome-section">
-        <h1>Welcome to Our Shop</h1>
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <h1>Welcome to Our Modern Shop</h1>
         <% if (locals.username) { %>
-        <p>Welcome back, <%= username %>!</p>
-        <a href="/users/me" class="button">My Profile</a>
-        <a href="/products" class="button">View Products</a>
+          <p>Welcome back, <%= username %>! Ready to discover amazing products?</p>
+          <a href="/products" class="button">Browse Products</a>
         <% } else { %>
-        <p>Please login or register to continue</p>
-        <a href="/users/login" class="button">Login</a>
-        <a href="/users/register" class="button">Register</a>
+          <p>Discover amazing products with great deals</p>
+          <div class="button-group">
+            <a href="/users/login" class="button">Login</a>
+            <a href="/users/register" class="button secondary">Register</a>
+          </div>
         <% } %>
       </div>
+
+      <!-- Why Choose Us Section -->
+      <section class="why-choose-us">
+        <h2>Why Choose Us</h2>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <i class="fas fa-award"></i>
+            </div>
+            <h3>Premium Quality</h3>
+            <p>We carefully select and verify all products to ensure the highest quality standards for our customers.</p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Secure Shopping</h3>
+            <p>Your security is our priority. Shop with confidence using our advanced encryption and secure payment systems.</p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <i class="fas fa-sync"></i>
+            </div>
+            <h3>Easy Returns</h3>
+            <p>Not satisfied? Return your purchase within 30 days for a full refund, no questions asked.</p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3>24/7 Support</h3>
+            <p>Our dedicated support team is always ready to help you with any questions or concerns.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Latest News Section -->
+      <section class="latest-news">
+        <h2>Latest News & Tips</h2>
+        <div class="news-grid">
+          <article class="news-card">
+            <img src="/images/blog1.png" alt="Shopping Tips" class="news-image">
+            <div class="news-content">
+              <div class="news-date">March 15, 2024</div>
+              <h3 class="news-title">10 Smart Shopping Tips for Better Deals</h3>
+              <p class="news-excerpt">Discover the best strategies to find amazing deals and save money while shopping online.</p>
+              <a href="/blog/shopping-tips" class="read-more">
+                Read More <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+
+          <article class="news-card">
+            <img src="/images/blog2.png" alt="Tech Guide" class="news-image">
+            <div class="news-content">
+              <div class="news-date">March 12, 2024</div>
+              <h3 class="news-title">Ultimate Guide to Choosing Tech Gadgets</h3>
+              <p class="news-excerpt">Learn how to select the perfect tech gadgets that match your needs and lifestyle.</p>
+              <a href="/blog/tech-guide" class="read-more">
+                Read More <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+
+          <article class="news-card">
+            <img src="/images/blog3.png" alt="Sustainable Shopping" class="news-image">
+            <div class="news-content">
+              <div class="news-date">March 10, 2024</div>
+              <h3 class="news-title">Sustainable Shopping: A Better Future</h3>
+              <p class="news-excerpt">Explore how your shopping choices can contribute to a more sustainable future.</p>
+              <a href="/blog/sustainable-shopping" class="read-more">
+                Read More <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Newsletter Section -->
+      <div class="cta-section">
+        <div class="cta-content">
+          <h2>Stay in the Loop</h2>
+          <p>Subscribe to our newsletter and get exclusive offers, new product alerts, and insider-only discounts.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email address">
+            <button type="submit">Subscribe <i class="fas fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About Us</h3>
+          <p>We're dedicated to providing the best shopping experience with carefully curated products and exceptional customer service.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/products">Shop</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Customer Care</h3>
+          <ul>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/shipping">Shipping Info</a></li>
+            <li><a href="/returns">Returns</a></li>
+            <li><a href="/track-order">Track Order</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Contact Info</h3>
+          <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+          <p><i class="fas fa-envelope"></i> support@shop.com</p>
+          <p><i class="fas fa-location-dot"></i> 123 Street Name, City, Country</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 Your Shop Name. All rights reserved.</p>
+      </div>
+    </footer>
   </body>
 </html>
