@@ -1,34 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Add New Product</title>
-  <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-  <div class="container">
-    <div class="card">
-      <h1>Add New Product</h1>
-      <form action="/products" method="POST">
-        <div class="form-group">
-          <label>Name:</label>
-          <input type="text" name="name" required>
-        </div>
-        <div class="form-group">
-          <label>Description:</label>
-          <textarea name="description" required></textarea>
-        </div>
-        <div class="form-group">
-          <label>Price:</label>
-          <input type="number" name="price" step="0.01" required>
-        </div>
-        <button type="submit" class="button">
-          <i class="fas fa-plus"></i> Add Product
-        </button>
-        <a href="/products" class="button delete-button">
-          <i class="fas fa-times"></i> Cancel
-        </a>
-      </form>
+  <head>
+    <title>Add New Product</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+      /* Đảm bảo tất cả các thẻ form đều có kích thước đồng nhất */
+      .form-group input[type="text"],
+      .form-group input[type="number"],
+      .form-group textarea,
+      .form-group select {
+        width: 100%; /* Đặt chiều rộng 100% */
+        padding: 10px; /* Khoảng cách bên trong */
+        font-size: 16px; /* Cỡ chữ */
+        box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến width */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1>Add New Product</h1>
+        <form action="/products" method="POST">
+          <div class="form-group">
+            <label>Name:</label>
+            <input type="text" name="name" required />
+          </div>
+          <div class="form-group">
+            <label>Category:</label>
+            <select name="category" class="filter-select" required>
+              <option value="">Select Category</option>
+              <option value="Sport Gear">Sport Gear</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Book">Book</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Brand:</label>
+            <input type="text" name="brand" required />
+          </div>
+          <div class="form-group">
+            <label>Description:</label>
+            <textarea name="description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Price:</label>
+            <input type="number" name="price" step="0.01" required />
+          </div>
+          <button type="submit" class="button">
+            <i class="fas fa-plus"></i> Add Product
+          </button>
+          <a href="/products" class="button delete-button">
+            <i class="fas fa-times"></i> Cancel
+          </a>
+        </form>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
