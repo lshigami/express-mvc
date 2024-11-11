@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= product.name %></title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+      .related-products {
+        margin-top: 30px;
+      }
+
+      .product-list {
+        display: flex;
+        gap: 20px;
+        justify-content: space-around;
+        margin-top: 40px;
+      }
+
+      .product-card {
+        position: relative; /* Đảm bảo ::before căn chỉnh theo thẻ cha */
+        padding: 1em;
+        width: 250px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+        overflow: hidden;
+      }
+
+      .product-card:hover {
+        transform: scale(1.05); /* Phóng to nhẹ khi hover */
+      }
+
+      .product.card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .product-card:hover::before {
+        opacity: 1; /* Hiển thị gradient khi hover */
+      }
+
+      .product-card h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .product-card p {
+        margin: 5px 0;
+      }
+
+      .product-card .price {
+        color: #6366f1;
+      }
+
+      .product-card .button {
+        margin-top: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      <div class="left-links">
+        <a href="/">Home</a>
+        <a href="/users/me">My Profile</a>
+        <a href="/products">Products</a>
+      </div>
+      <div class="right-links">
+        <a href="/users/logout">Logout</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="card">
+        <h1><%= product.name %></h1>
+        <div class="product-details">
+          <p>Brand: <%= product.brand %></p>
+          <p>Category: <%= product.category %></p>
+          <p><%= product.description %></p>
+          <p class="price">Price: $<%= product.price %></p>
+          <div class="button-group">
+            <a href="/products/<%= product.id %>/edit" class="button">
+              <i class="fas fa-edit"></i> Edit
+            </a>
+            <a href="/products" class="button">
+              <i class="fas fa-arrow-left"></i> Back to Products
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <% if (relatedProducts.length > 0) { %>
+      <div class="related-products">
+        <h2>Related Products</h2>
+        <div class="product-list">
+          <% relatedProducts.forEach(relatedProduct => { %>
+          <div class="product-card">
+            <h3><%= relatedProduct.name %></h3>
+            <p>Brand: <%= relatedProduct.brand %></p>
+            <p class="price">Price: $<%= relatedProduct.price %></p>
+            <a href="/products/<%= relatedProduct.id %>" class="button">
+              View Product
+            </a>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </body>
+</html>

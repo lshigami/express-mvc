@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Products</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      .container {
+        margin-top: 120px; /* Tạo khoảng trống dưới navbar */
+      }
+
+      .filter-search {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 100px;
+        gap: 15px;
+      }
+
+      .search-bar {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .search-input {
+        width: 50%; /* Làm cho thanh tìm kiếm rộng hơn */
+        padding: 12px;
+        font-size: 18px;
+      }
+
+      .filter-fields {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .filter-select,
+      .filter-input {
+        padding: 8px;
+        font-size: 14px;
+      }
+
+      .button {
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      .button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      <div class="left-links">
+        <a href="/">Home</a>
+        <a href="/users/me">My Profile</a>
+        <a href="/products">Products</a>
+      </div>
+      <div class="right-links">
+        <a href="/users/logout">Logout</a>
+      </div>
+    </div>
+
+    <div class="filter-search">
+      <form action="/products" method="GET" class="filter-form">
+        <!-- Thanh tìm kiếm lớn, nằm ở giữa -->
+        <div class="search-bar">
+          <input
+            type="text"
+            name="name"
+            placeholder="Search product name"
+            class="search-input"
+          />
+        </div>
+
+        <div class="search-bar">
+          <input
+            type="text"
+            name="description"
+            placeholder="Search description"
+            class="search-input"
+          />
+        </div>
+
+        <!-- Hàng chứa các ô lọc -->
+        <div class="filter-fields">
+          <input
+            type="text"
+            name="brand"
+            placeholder="Enter Brand"
+            class="filter-input"
+          />
+
+          <select name="category" class="filter-select">
+            <option value="">Select Category</option>
+            <option value="Sport Gear">Sport Gear</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Book">Book</option>
+            <!-- Thêm các category khác tùy ý -->
+          </select>
+
+          <input
+            type="number"
+            name="minPrice"
+            placeholder="Min Price"
+            class="filter-input"
+          />
+
+          <input
+            type="number"
+            name="maxPrice"
+            placeholder="Max Price"
+            class="filter-input"
+          />
+
+          <button type="submit" class="button">
+            <i class="fas fa-filter"></i> Filter
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="container">
+      <div class="card">
+        <h1>Products</h1>
+        <a href="/products/new" class="button">
+          <i class="fas fa-plus"></i> Add New Product
+        </a>
+      </div>
+      <div class="products">
+        <% if (products.length > 0) { %> <% products.forEach(product => { %>
+        <div class="product card">
+          <h2><%= product.name %></h2>
+          <p>Brand: <%= product.brand %></p>
+          <p>Category: <%= product.category%></p>
+          <p><%= product.description %></p>
+          <p class="price">Price: $<%= product.price %></p>
+          <div class="button-group">
+            <a href="/products/<%= product.id %>" class="button">
+              <i class="fas fa-eye"></i> View
+            </a>
+            <form
+              action="/products/<%= product.id %>/delete"
+              method="POST"
+              style="display: inline"
+            >
+              <button type="submit" class="button delete-button">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        <% }) %> <% } else { %>
+        <p>No products found.</p>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>
