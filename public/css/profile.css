@@ -89,7 +89,8 @@
 }
 
 .button:not(.secondary) {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  /* background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); */
+  background-color: #ff4d4d;
   color: white;
 }
 
@@ -108,11 +109,11 @@
   .profile-card {
     margin: 1rem;
   }
-  
+
   .profile-actions {
     flex-direction: column;
   }
-  
+
   .button {
     width: 100%;
   }

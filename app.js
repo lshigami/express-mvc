@@ -3,6 +3,7 @@ const express = require("express");
 const session = require("express-session");
 const path = require("path");
 const db = require("./models");
+const upload = require("./middlewares/multer");
 
 const app = express();
 
@@ -39,12 +40,25 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.post("/upload", upload.single("image"), (req, res) => {
+  try {
+    const filePath = req.file ? `/uploads/${req.file.filename}` : null; // Đường dẫn file
+    res.status(200).json({ message: "Upload successful", filePath });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.set("views", path.join(__dirname, "views"));
+app.get("/users/forgot-password", (req, res) => {
+  res.render("users/forgot-password"); // Render file forgot-password.ejs
+});
 app.use("/products", authMiddleware, productRoutes);
 app.use("/users", userRoutes);
 
 // Start server
 db.sequelize.sync().then(() => {
-  app.listen(3000, () => {
+  app.listen(3001, () => {
     console.log("Server running on port 3000");
   });
 });

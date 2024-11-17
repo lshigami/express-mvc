@@ -22,5 +22,9 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    image: {
+      type: DataTypes.STRING, // Lưu trữ đường dẫn hoặc URL ảnh
+      allowNull: true, // Không bắt buộc
+    },
   });
 };
