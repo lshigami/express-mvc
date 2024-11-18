@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Product</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #f9f9f9;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group button {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      /* Kiểu chung cho các nút */
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        background-color: #6366f1; /* Màu xanh mặc định */
+        color: white;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+
+      .button:hover {
+        background-color: #4f46e5; /* Màu xanh đậm khi hover */
+      }
+
+      /* Kiểu cho nút Back */
+      .back-button {
+        background-color: #fbbf24; /* Màu vàng tươi */
+        margin-top: 10px;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .back-button:hover {
+        background-color: #f59e0b; /* Màu vàng đậm khi hover */
+      }
+
+      /* Giữ màu xanh cho nút Update */
+      .update-button {
+        background-color: #6366f1; /* Màu xanh */
+        color: white;
+        border-radius: 4px;
+      }
+
+      .update-button:hover {
+        background-color: #4f46e5; /* Màu xanh đậm khi hover */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Edit Product: <%= product.name %></h1>
+      <form
+        action="/products/<%= product.id %>"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value="<%= product.name %>"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" required>
+<%= product.description %></textarea
+          >
+        </div>
+        <div class="form-group">
+          <label for="price">Price:</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            value="<%= product.price %>"
+            step="0.01"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <input
+            type="text"
+            id="category"
+            name="category"
+            value="<%= product.category %>"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="brand">Brand:</label>
+          <input
+            type="text"
+            id="brand"
+            name="brand"
+            value="<%= product.brand %>"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="image">Image:</label>
+          <% if (product.image) { %>
+          <img
+            src="<%= product.image %>"
+            alt="<%= product.name %>"
+            style="max-width: 200px; margin-bottom: 10px"
+          />
+          <% } %>
+          <input type="file" id="image" name="image" />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="button update-button">
+            Update Product
+          </button>
+        </div>
+      </form>
+      <a href="/products/<%= product.id %>" class="button back-button"
+        >Back to Product</a
+      >
+    </div>
+  </body>
+</html>
