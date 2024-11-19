@@ -1,8 +1,9 @@
 # Base image
 FROM node:18-alpine
 
-# Install bash
-RUN apk add --no-cache bash
+# Install bash and nodemon for development
+RUN apk add --no-cache bash && \
+    npm install -g nodemon
 
 # Set working directory
 WORKDIR /app
@@ -20,5 +21,5 @@ COPY . .
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
 
-# Default command (can be overridden in docker-compose.yml)
-CMD ["node", "app.js"]
+# Default command
+CMD ["npm", "run", "start"]
