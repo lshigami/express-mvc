@@ -2,113 +2,75 @@
 <html>
   <head>
     <title><%= product.name %></title>
+    <link rel="icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="/css/styles.css" />
-    <style>
-      .related-products {
-        margin-top: 30px;
-      }
-
-      .product-list {
-        display: flex;
-        gap: 20px;
-        justify-content: space-around;
-        margin-top: 40px;
-      }
-
-      .product-card {
-        position: relative; /* Đảm bảo ::before căn chỉnh theo thẻ cha */
-        padding: 1em;
-        width: 250px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s;
-        overflow: hidden;
-      }
-
-      .product-card:hover {
-        transform: scale(1.05); /* Phóng to nhẹ khi hover */
-      }
-
-      .product.card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background: linear-gradient(90deg, #6366f1, #8b5cf6);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-
-      .product-card:hover::before {
-        opacity: 1; /* Hiển thị gradient khi hover */
-      }
-
-      .product-card h3 {
-        font-size: 16px;
-        margin-bottom: 10px;
-      }
-
-      .product-card p {
-        margin: 5px 0;
-      }
-
-      .product-card .price {
-        color: #6366f1;
-      }
-
-      .product-card .button {
-        margin-top: 10px;
-        text-align: center;
-      }
-
-      .product-details img,
-      .product-card img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 0 auto 10px;
-      }
-    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
   </head>
   <body>
-    <div class="nav">
+    <nav class="nav">
+      <a href="/" class="logo">
+        <i class="fas fa-store"></i>
+        <span>3TGStore</span>
+      </a>
       <div class="left-links">
-        <a href="/">Home</a>
-        <a href="/users/me">My Profile</a>
-        <a href="/products">Products</a>
+        <a href="/" class="nav-link">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
+        <a href="/products" class="nav-link active">
+          <i class="fas fa-box"></i>
+          <span>Products</span>
+        </a>
+        <a href="/categories" class="nav-link">
+          <i class="fas fa-th-large"></i>
+          <span>Categories</span>
+        </a>
+        <a href="/users/me" class="nav-link">
+          <i class="fas fa-user"></i>
+          <span>Account</span>
+        </a>
       </div>
       <div class="right-links">
-        <a href="/users/logout">Logout</a>
+        <a href="/users/logout" class="cart-link" onclick="return confirm('Are you sure you want to logout?');">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
       </div>
-    </div>
+    </nav>
     <div class="container">
       <div class="card">
-        <h1><%= product.name %></h1>
         <div class="product-details">
-          <% if (product.image) { %>
-          <img
-            src="<%= product.image %>"
-            alt="<%= product.name %>"
-            style="max-width: 300px; border-radius: 8px"
-          />
-          <% } else { %>
-          <p>No image available</p>
-          <% } %>
-          <p>Brand: <%= product.brand %></p>
-          <p>Category: <%= product.category %></p>
-          <p><%= product.description %></p>
-          <p class="price">Price: $<%= product.price %></p>
-          <div class="button-group">
-            <a href="/products/<%= product.id %>/edit" class="button">
-              <i class="fas fa-edit"></i> Edit
-            </a>
-            <a href="/products" class="button">
-              <i class="fas fa-arrow-left"></i> Back to Products
-            </a>
+          <div class="product-image">
+            <% if (product.image) { %>
+              <img src="<%= product.image %>" alt="<%= product.name %>" />
+            <% } else { %>
+              <div class="no-image">
+                <i class="fas fa-image"></i>
+                <p>No image available</p>
+              </div>
+            <% } %>
+          </div>
+          <div class="product-info">
+            <h1><%= product.name %></h1>
+            <p class="brand"><i class="fas fa-tag"></i> Brand: <%= product.brand %></p>
+            <p class="category"><i class="fas fa-th-large"></i> Category: <%= product.category %></p>
+            <p class="description"><%= product.description %></p>
+            <p class="price">$<%= product.price %></p>
+            <div class="button-group">
+              <a href="/products/<%= product.id %>/edit" class="button">
+                <i class="fas fa-edit"></i> Edit Product
+              </a>
+              <a href="/products" class="button delete-button">
+                <i class="fas fa-arrow-left"></i> Back to Products
+              </a>
+            </div>
           </div>
         </div>
       </div>

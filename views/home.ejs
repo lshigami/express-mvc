@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Welcome to Our Shop</title>
+    <link rel="icon" href="/images/favicon.ico">
+    <title>3TGStore</title>
     <link rel="stylesheet" href="/css/styles.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
@@ -12,116 +13,45 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <style>
-      .discount-section {
-        padding: 2em 0;
-        text-align: center;
-        background-color: #f9f9f9;
-      }
-
-      .discount-section h2 {
-        font-size: 2em;
-        color: #333;
-        margin-bottom: 1em;
-      }
-
-      .discount-section h2::after {
-        content: "";
-        position: absolute;
-        bottom: 450px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 4px;
-        background: linear-gradient(90deg, #6366f1, #8b5cf6);
-        border-radius: 2px;
-      }
-
-      .discount-grid {
-        display: flex;
-        gap: 1em;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .discount-card {
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-        width: 300px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s;
-      }
-
-      .discount-card:hover {
-        transform: scale(1.05);
-      }
-
-      .discount-image {
-        width: 100%;
-        height: auto;
-      }
-
-      .discount-content {
-        padding: 1em;
-        text-align: left;
-      }
-
-      .discount-content h3 {
-        font-size: 1.2em;
-        color: #333;
-        margin: 0.5em 0;
-      }
-
-      .original-price {
-        font-size: 1em;
-        color: #999;
-        text-decoration: line-through;
-      }
-
-      .discounted-price {
-        font-size: 1.5em;
-        color: #e60023;
-        font-weight: bold;
-      }
-
-      .discount-button {
-        display: inline-block;
-        margin-top: 1em;
-        padding: 0.5em 1em;
-        color: #fff;
-        background-color: #333;
-        border-radius: 4px;
-        text-decoration: none;
-        transition: background-color 0.2s;
-      }
-
-      .discount-button:hover {
-        background-color: #555;
-      }
-    </style>
   </head>
   <body>
     <% if (locals.userId) { %>
-    <div class="nav">
-      <div class="left-links">
-        <a href="/">Home</a>
-        <a href="/users/me">My Profile</a>
-        <a href="/products">Products</a>
-      </div>
-      <div class="right-links">
-        <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
-        <a href="/users/logout">Logout</a>
-      </div>
-    </div>
+      <nav class="nav">
+        <a href="/" class="logo">
+          <i class="fas fa-store"></i>
+          <span>3TGStore</span>
+        </a>
+        <div class="left-links">
+          <a href="/" class="nav-link active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+          </a>
+          <a href="/products" class="nav-link">
+            <i class="fas fa-box"></i>
+            <span>Products</span>
+          </a>
+          <a href="/categories" class="nav-link">
+            <i class="fas fa-th-large"></i>
+            <span>Categories</span>
+          </a>
+          <a href="/users/me" class="nav-link">
+            <i class="fas fa-user"></i>
+            <span>Account</span>
+          </a>
+        </div>
+        <div class="right-links">
+          <a href="/users/logout" class="cart-link" onclick="return confirm('Are you sure you want to logout?');">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </div>
+      </nav>
     <% } %>
 
     <div class="container">
       <!-- Hero Section -->
       <div class="hero-section">
-        <h1>Welcome to Our Modern Shop</h1>
+        <h1>Welcome to 3TGStore</h1>
         <% if (locals.username) { %>
         <p>
           Welcome back, <%= username %>! Ready to discover amazing products?
@@ -141,7 +71,7 @@
         <h2>Special Discounts Just for You!</h2>
         <div class="discount-grid">
           <!-- Sample Discount Product Card -->
-          <div class="discount-card">
+          <div class="discount-card"> 
             <img
               src="/images/discount1.jpg"
               alt="Discount Product 1"
@@ -361,16 +291,16 @@
 
         <div class="footer-section">
           <h3>Contact Info</h3>
-          <p><i class="fas fa-phone"></i> +1 234 567 890</p>
-          <p><i class="fas fa-envelope"></i> support@shop.com</p>
+          <p><i class="fas fa-phone"></i> (+84) 803214242</p>
+          <p><i class="fas fa-envelope"></i> 3tgstore@gmail.com</p>
           <p>
-            <i class="fas fa-location-dot"></i> 123 Street Name, City, Country
+            <i class="fas fa-location-dot"></i> VNU-HCMUS
           </p>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2024 Your Shop Name. All rights reserved.</p>
+        <p>&copy; 2024 3TGStore. All rights reserved.</p>
       </div>
     </footer>
   </body>

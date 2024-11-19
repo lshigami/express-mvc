@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Profile</title>
+    <title>3TGStore | My Profile</title>
+    <link rel="icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   </head>
   <body>
-    <div class="nav">
+    <nav class="nav">
+      <a href="/" class="logo">
+        <i class="fas fa-store"></i>
+        <span>3TGStore</span>
+      </a>
       <div class="left-links">
-        <a href="/">Home</a>
-        <a href="/users/me">My Profile</a>
-        <a href="/products">Products</a>
+        <a href="/" class="nav-link">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
+        <a href="/products" class="nav-link">
+          <i class="fas fa-box"></i>
+          <span>Products</span>
+        </a>
+        <a href="/categories" class="nav-link">
+          <i class="fas fa-th-large"></i>
+          <span>Categories</span>
+        </a>
+        <a href="/users/me" class="nav-link active">
+          <i class="fas fa-user"></i>
+          <span>Account</span>
+        </a>
       </div>
       <div class="right-links">
-        <a href="/users/logout">Logout</a>
+        <a href="/users/logout" class="cart-link" onclick="return confirm('Are you sure you want to logout?');">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
       </div>
-    </div>
+    </nav>
     
     <div class="container">
       <div class="profile-card">

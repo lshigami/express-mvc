@@ -1,0 +1,177 @@
+/* Container Layout */
+.container {
+  position: relative;
+  z-index: 1;
+  margin-top: 140px;
+}
+
+/* Search and Filter Section */
+.filter-search {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  padding: 12px 24px;
+  z-index: 1090;
+  backdrop-filter: blur(10px);
+}
+
+.filter-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.search-group {
+  position: relative;
+  flex: 1;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.search-input:focus {
+  border-color: #8b5cf6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.filter-select {
+  padding: 8px 24px 8px 12px;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+.price-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.price-input {
+  width: 80px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
+
+.price-separator {
+  color: #94a3b8;
+}
+
+/* Optional: Add these styles for a more modern look */
+.search-input::placeholder,
+.price-input::placeholder {
+  color: #94a3b8;
+}
+
+.filter-select:focus,
+.price-input:focus {
+  border-color: #8b5cf6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+/* Sort Section */
+.sort-form {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 20px;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin: 20px 20px 0;
+}
+
+/* Buttons */
+.button {
+  padding: 8px 16px;
+  background-color: #8b5cf6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.button:hover {
+  background-color: #7c3aed;
+}
+
+.button.delete-button {
+  background-color: #ef4444;
+}
+
+.button.delete-button:hover {
+  background-color: #dc2626;
+}
+
+/* Product Images */
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+/* Add styles for the apply button */
+.apply-button {
+  padding: 8px 16px;
+  background-color: #8b5cf6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.apply-button:hover {
+  background-color: #7c3aed;
+}
+
+@media (max-width: 768px) {
+    .filter-search {
+      top: 60px;
+      padding: 12px 16px;
+    }
+  
+    /* When mobile menu is active, push filter down */
+    .left-links.active ~ .filter-search,
+    .right-links.active ~ .filter-search {
+      top: 240px; /* Adjust based on your nav menu height */
+      transition: top 0.3s ease;
+    }
+  
+    .container {
+      margin-top: 220px;
+      z-index: 1;
+    }
+  }
