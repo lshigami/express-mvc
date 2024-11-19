@@ -1,11 +1,63 @@
-version: "3"
 services:
-  postgres-db:
-    image: postgres
-    container_name: postgres-db
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: myapp-frontend
+    ports:
+      - "3001:3001"
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypass
-      POSTGRES_DB: mydb
+      - PORT=3001
+    networks:
+      - myapp-network
+    command: npm run start
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: myapp-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=${DB_USER:-myuser}
+      - DB_PASSWORD=${DB_PASSWORD:-mypass}
+      - DB_NAME=${DB_NAME:-mydb}
+      - PORT=3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - myapp-network
+    command: /wait-for-it.sh postgres:5432 --timeout=30 -- node app.js
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: myapp-database
+    environment:
+      POSTGRES_DB: ${DB_NAME:-mydb}
+      POSTGRES_USER: ${DB_USER:-myuser}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-mypass}
     ports:
       - "5434:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - myapp-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-myuser} -d ${DB_NAME:-mydb}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  myapp-network:
+    driver: bridge
+
+volumes:
+  postgres-data:

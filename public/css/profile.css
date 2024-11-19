@@ -89,15 +89,14 @@
 }
 
 .button:not(.secondary) {
-  /* background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); */
   background-color: #ff4d4d;
   color: white;
 }
 
 .button.secondary {
-  background: white;
-  color: #6366f1;
-  border: 2px solid #6366f1;
+  background: rgb(43, 252, 252);
+  color: #000000;
+  border: 2px solid #c1c2ff;
 }
 
 .button:hover {

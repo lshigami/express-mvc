@@ -39,14 +39,7 @@
   box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
 }
 
-.button.secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: #6366f1;
-  border: 2px solid #6366f1;
-}
-
 .button.secondary:hover {
-  background: #6366f1;
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);

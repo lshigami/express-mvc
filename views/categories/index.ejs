@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>3TGStore | Product Categories</title>
+
+    <link rel="icon" href="/images/favicon.ico">
+
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/categories.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="/" class="logo">
+        <i class="fas fa-store"></i>
+        <span>3TGStore</span>
+      </a>
+      <div class="left-links">
+        <a href="/" class="nav-link">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
+        <a href="/products" class="nav-link">
+          <i class="fas fa-box"></i>
+          <span>Products</span>
+        </a>
+        <a href="/categories" class="nav-link active">
+          <i class="fas fa-th-large"></i>
+          <span>Categories</span>
+        </a>
+        <a href="/users/me" class="nav-link">
+          <i class="fas fa-user"></i>
+          <span>Account</span>
+        </a>
+      </div>
+      <div class="right-links">
+        <a href="/users/logout" class="cart-link" onclick="return confirm('Are you sure you want to logout?');">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1 class="categories-title">Shop by Category</h1>
+      <p class="categories-subtitle">Explore our wide range of products across different categories</p>
+
+      <div class="categories-grid">
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-running"></i>
+          </div>
+          <h2>Sport Gear</h2>
+          <p>High-quality equipment and accessories for all your sporting needs</p>
+          <ul class="category-features">
+            <li>Professional equipment</li>
+            <li>Training accessories</li>
+            <li>Sports clothing</li>
+            <li>Fitness gear</li>
+          </ul>
+          <a href="/products?category=Sport%20Gear" class="category-button">
+            Browse Sport Gear
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-laptop"></i>
+          </div>
+          <h2>Electronics</h2>
+          <p>Latest gadgets and electronic devices for modern living</p>
+          <ul class="category-features">
+            <li>Smartphones & tablets</li>
+            <li>Laptops & computers</li>
+            <li>Audio equipment</li>
+            <li>Smart home devices</li>
+          </ul>
+          <a href="/products?category=Electronics" class="category-button">
+            Browse Electronics
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-tshirt"></i>
+          </div>
+          <h2>Fashion</h2>
+          <p>Trendy clothing and accessories for every style</p>
+          <ul class="category-features">
+            <li>Designer clothing</li>
+            <li>Accessories</li>
+            <li>Footwear</li>
+            <li>Jewelry</li>
+          </ul>
+          <a href="/products?category=Fashion" class="category-button">
+            Browse Fashion
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <h2>Books</h2>
+          <p>Extensive collection of books across all genres</p>
+          <ul class="category-features">
+            <li>Fiction & literature</li>
+            <li>Educational books</li>
+            <li>Children's books</li>
+            <li>Self-development</li>
+          </ul>
+          <a href="/products?category=Book" class="category-button">
+            Browse Books
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

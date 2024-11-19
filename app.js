@@ -40,6 +40,10 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
+app.get('/categories', (req, res) => {
+  res.render('categories/index');
+});
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.post("/upload", upload.single("image"), (req, res) => {
   try {
@@ -51,14 +55,26 @@ app.post("/upload", upload.single("image"), (req, res) => {
 });
 app.set("views", path.join(__dirname, "views"));
 app.get("/users/forgot-password", (req, res) => {
-  res.render("users/forgot-password"); // Render file forgot-password.ejs
+  res.render("users/forgot-password"); 
 });
 app.use("/products", authMiddleware, productRoutes);
 app.use("/users", userRoutes);
+
+// Middleware xử lý 404 - Đặt ở cuối cùng, sau tất cả các routes khác
+app.use((req, res, next) => {
+  res.status(404).render('404');
+});
+
+// Middleware xử lý lỗi
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render('500');
+});
 
 // Start server
 db.sequelize.sync().then(() => {
   app.listen(3001, () => {
     console.log("Server running on port 3000");
+    console.log("Client running on http://localhost:3001");
   });
 });
