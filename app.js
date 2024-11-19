@@ -4,6 +4,7 @@ const session = require("express-session");
 const path = require("path");
 const flash = require('connect-flash');
 const db = require("./models");
+const auth = require('./middlewares/auth');
 
 const app = express();
 
@@ -43,9 +44,9 @@ app.use((req, res, next) => {
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/userRoutes'));
-app.use('/products', require('./routes/productRoutes'));
-app.use('/categories', require('./routes/categoryRoutes'));
-app.use('/upload', require('./routes/uploadRoutes'));
+app.use('/products', auth, require('./routes/productRoutes'));
+app.use('/categories', auth, require('./routes/categoryRoutes'));
+app.use('/upload', auth, require('./routes/uploadRoutes'));
 
 // Error handling
 app.use((req, res, next) => {

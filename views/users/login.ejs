@@ -19,10 +19,6 @@
           <p>Sign in to your account</p>
         </div>
 
-        <% if (typeof error !== 'undefined') { %>
-        <div class="error-message"><%= error %></div>
-        <% } %>
-
         <form action="/users/login" method="POST">
           <div class="form-group">
             <label for="username">Username</label>
@@ -83,6 +79,10 @@
       }
 
       setupPasswordToggle("togglePassword", "password");
+
+      if(locals.error) {
+        alert(locals.error);
+      }
     </script>
 
     <div class="modal-overlay" id="modalOverlay">
