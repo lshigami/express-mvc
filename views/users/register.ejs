@@ -17,10 +17,6 @@
           <p>Join our community today</p>
         </div>
 
-        <% if (locals.success && success !== '') { %>
-        <div class="success-message"><%= success %></div>
-        <% } %>
-
         <form action="/users/register" method="POST" id="registerForm">
           <div class="form-group">
             <label for="username">Username</label>
@@ -123,18 +119,27 @@
           e.preventDefault();
 
           const password = document.getElementById("password").value;
-          const confirmPassword = document.getElementById("confirmPassword").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
 
           if (password !== confirmPassword) {
             alert("Passwords do not match!");
             return;
           }
+
+          form.submit();
         });
 
-        const successMessage = '<%= locals.success %>';
-        if (successMessage) {
+        const errorMessage = '<%= locals.error && locals.error !== "" ? locals.error : "" %>';
+        if (errorMessage && errorMessage.trim() !== '') {
+          alert(errorMessage);
+        }
+
+        const successMessage = '<%= locals.success && locals.success !== "" ? locals.success : "" %>';
+        if (successMessage && successMessage.trim() !== '') {
+          console.log(successMessage);
           if (confirm(successMessage)) {
-            window.location.href = "/users/login";
+            window.location.href = '/users/login';
           }
         }
       });

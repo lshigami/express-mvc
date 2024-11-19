@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login | 3TGStore</title>
-    <link rel="icon" href="/images/favicon.ico">
+    <link rel="icon" href="/images/favicon.ico" />
     <link rel="stylesheet" href="/css/styles.css" />
     <link
       rel="stylesheet"
@@ -55,7 +55,9 @@
         </form>
 
         <div class="auth-links">
-          <p>Don't have an account? <a href="/users/register">Create Account</a></p>
+          <p>
+            Don't have an account? <a href="/users/register">Create Account</a>
+          </p>
           <p><a href="/users/forgot-password">Forgot Password?</a></p>
           <p><a href="/">Back to Home</a></p>
         </div>
@@ -69,7 +71,8 @@
 
         if (toggle && input) {
           toggle.addEventListener("click", function () {
-            const type = input.getAttribute("type") === "password" ? "text" : "password";
+            const type =
+              input.getAttribute("type") === "password" ? "text" : "password";
             input.setAttribute("type", type);
             this.classList.toggle("fa-eye");
             this.classList.toggle("fa-eye-slash");
@@ -80,20 +83,20 @@
 
       setupPasswordToggle("togglePassword", "password");
 
-      if(locals.error) {
-        alert(locals.error);
-      }
-    </script>
+      document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
 
-    <div class="modal-overlay" id="modalOverlay">
-      <div class="success-modal">
-        <div class="success-icon">
-          <i class="fas fa-check"></i>
-        </div>
-        <h2>Login Successful!</h2>
-        <p>You will be redirected to the home page in a moment.</p>
-        <button class="modal-button" id="modalButton">Continue to Home</button>
-      </div>
-    </div>
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        const errorMessage = "<%= locals.error %>";
+        if (errorMessage) {
+          alert(errorMessage);
+          return;
+        }
+
+        this.submit();
+      });
+    </script>
   </body>
 </html>
