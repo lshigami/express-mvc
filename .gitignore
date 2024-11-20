@@ -28,3 +28,6 @@ Thumbs.db
 # Other files
 *.tgz
 *.gz
+
+# Uploaded files
+uploads/
