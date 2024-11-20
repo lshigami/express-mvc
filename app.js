@@ -75,13 +75,17 @@ app.use((err, req, res, next) => {
   res.status(500).render('500', { error: err });
 });
 
-// Start server
-const PORT = process.env.PORT || 3000;
+// Convert PORT to number and validate
+const PORT = Number(process.env.PORT) || 3000;
+if (isNaN(PORT) || PORT < 0 || PORT > 65535) {
+  console.error('Invalid PORT value');
+  process.exit(1);
+}
 
 db.sequelize.sync()
   .then(() => {
     app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Application is running on port ${PORT}`);
+      console.log(`Server is running on port ${PORT}`);
     });
   })
   .catch(err => {

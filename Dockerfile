@@ -1,31 +1,28 @@
-# Base image
 FROM node:18-alpine
 
-# Install bash and nodemon for development
-RUN apk add --no-cache bash && \
-    npm install -g nodemon
-
-# Set working directory
 WORKDIR /app
 
-# Copy package files
+# Install dependencies first (caching layer)
 COPY package*.json ./
+RUN npm ci --only=production
 
-# Install dependencies
-RUN npm install --production
-
-# Copy project files
+# Copy application code
 COPY . .
 
-# Add wait-for-it script
-ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /wait-for-it.sh
-RUN chmod +x /wait-for-it.sh
+# Create uploads directory
+RUN mkdir -p uploads && chmod 777 uploads
 
-# Expose port
-EXPOSE 3000
+# Set production environment
+ENV NODE_ENV=production
 
-# Production
-CMD ["npm", "start"]
+# Validate and expose port
+ARG PORT=3000
+ENV PORT=$PORT
+EXPOSE $PORT
 
+# Healthcheck
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:$PORT/ || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:$PORT/ || exit 1
+
+# Start the application
+CMD ["node", "app.js"]
