@@ -21,5 +21,8 @@ COPY . .
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
 
-# Default command
-CMD ["npm", "run", "start"]
+# Expose port
+EXPOSE 3000
+
+# Production
+CMD ["npm", "start"]
