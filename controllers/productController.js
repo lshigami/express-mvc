@@ -8,9 +8,12 @@ exports.getAllProducts = async (req, res) => {
 
   // Tạo điều kiện tìm kiếm theo các giá trị được nhập
   const filters = {};
-  if (name && name.trim() !== "") filters.name = { [Op.iLike]: `%${name}%` };
-  if (description && description.trim() !== "")
-    filters.description = { [Op.iLike]: `%${description}%` };
+  if (name && name.trim() !== "") {
+    filters[Op.or] = [
+      { name: { [Op.iLike]: `%${name}%` } },
+      { description: { [Op.iLike]: `%${name}%` } }
+    ];
+  }
   if (brand && brand.trim() !== "")
     filters.brand = { [Op.iLike]: `%${brand}%` };
   if (category && category.trim() !== "")
