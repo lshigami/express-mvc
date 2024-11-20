@@ -15,15 +15,17 @@ if (process.env.NODE_ENV === 'production') {
     logging: false
   });
 } else {
-  sequelize = new Sequelize({
-    database: process.env.DB_NAME,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    dialect: 'postgres',
-    logging: false
-  });
+  sequelize = new Sequelize(
+    process.env.POSTGRES_DB || 'railway',
+    process.env.POSTGRES_USER || 'postgres',
+    process.env.POSTGRES_PASSWORD,
+    {
+      host: process.env.PGHOST || 'localhost',
+      port: process.env.PGPORT || 5432,
+      dialect: 'postgres',
+      logging: false
+    }
+  );
 }
 
 const db = {};

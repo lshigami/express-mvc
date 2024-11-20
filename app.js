@@ -30,8 +30,12 @@ const pool = new Pool({
 
 app.use(session({
   store: new pgSession({
-    pool,
-    tableName: 'session'
+    conObject: {
+      connectionString: process.env.DATABASE_URL,
+      ssl: process.env.NODE_ENV === 'production' ? {
+        rejectUnauthorized: false
+      } : false
+    }
   }),
   secret: process.env.SESSION_SECRET,
   resave: false,
