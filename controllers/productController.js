@@ -6,12 +6,11 @@ exports.getAllProducts = async (req, res) => {
   const { name, brand, category, minPrice, maxPrice, description, sort } =
     req.query;
 
-  // Tạo điều kiện tìm kiếm theo các giá trị được nhập
   const filters = {};
   if (name && name.trim() !== "") {
     filters[Op.or] = [
       { name: { [Op.iLike]: `%${name}%` } },
-      { description: { [Op.iLike]: `%${name}%` } }
+      { description: { [Op.iLike]: `%${name}%` } },
     ];
   }
   if (brand && brand.trim() !== "")
@@ -26,9 +25,9 @@ exports.getAllProducts = async (req, res) => {
   try {
     let order = [];
     if (sort === "asc") {
-      order = [["price", "ASC"]]; // Giá tăng dần
+      order = [["price", "ASC"]];
     } else if (sort === "desc") {
-      order = [["price", "DESC"]]; // Giá giảm dần
+      order = [["price", "DESC"]];
     }
     const products = await Product.findAll({ where: filters, order: order });
     res.render("products/index", {
@@ -50,23 +49,20 @@ exports.getProduct = async (req, res) => {
   try {
     const productId = req.params.id;
 
-    // Tìm sản phẩm hiện tại
     const product = await Product.findByPk(productId);
 
     if (!product) {
       return res.status(404).render("404");
     }
 
-    // Tìm các sản phẩm liên quan trong cùng category
     const relatedProducts = await Product.findAll({
       where: {
         category: product.category,
-        id: { [Op.ne]: productId }, // Loại bỏ sản phẩm hiện tại
+        id: { [Op.ne]: productId },
       },
-      limit: 10, // Giới hạn số lượng sản phẩm liên quan (tùy chỉnh theo ý bạn)
+      limit: 10,
     });
 
-    // Truyền sản phẩm và các sản phẩm liên quan vào view
     res.render("products/show", { product, relatedProducts });
   } catch (error) {
     res.status(500).json({ error: error.message });
