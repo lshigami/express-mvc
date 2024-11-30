@@ -6,19 +6,17 @@ module.exports = (passport) => {
   passport.use(
     new LocalStrategy(
       {
-        usernameField: "username", // Thay đổi từ email sang username
+        usernameField: "username",
         passwordField: "password",
       },
       async (username, password, done) => {
         try {
-          // Tìm kiếm user theo username
           const user = await db.User.findOne({ where: { username } });
 
           if (!user) {
             return done(null, false, { message: "User not found" });
           }
 
-          // So sánh password
           const isMatch = await bcrypt.compare(password, user.password);
 
           if (!isMatch) {
@@ -33,12 +31,10 @@ module.exports = (passport) => {
     )
   );
 
-  // Serialize user để lưu vào session
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
-  // Deserialize user từ session
   passport.deserializeUser(async (id, done) => {
     try {
       const user = await db.User.findByPk(id);

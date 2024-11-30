@@ -31,10 +31,20 @@ exports.register = async (req, res) => {
 };
 
 exports.login = (req, res, next) => {
-  passport.authenticate("local", {
-    successRedirect: "/products",
-    failureRedirect: "/users/login",
-    failureFlash: true,
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      req.flash("error", "Invalid username or password.");
+      return res.redirect("/users/login");
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect("/products");
+    });
   })(req, res, next);
 };
 
@@ -51,7 +61,12 @@ exports.logout = (req, res) => {
     if (err) {
       return next(err);
     }
-    req.flash("success", "Logged out successfully");
-    res.redirect("/users/login");
+
+    req.session.destroy((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/users/login");
+    });
   });
 };
