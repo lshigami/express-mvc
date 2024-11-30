@@ -1,5 +1,6 @@
-const { User } = require("../models");
+const passport = require("passport");
 const bcrypt = require("bcryptjs");
+const { User } = require("../models");
 
 exports.register = async (req, res) => {
   try {
@@ -9,75 +10,48 @@ exports.register = async (req, res) => {
       email: req.body.email,
       password: hashedPassword,
     });
-    
-    res.render('users/login', {
-      success: 'Registration successful! Click OK to proceed to login.',
-    });
+
+    req.flash("success", "Registration successful! Please log in.");
+    res.redirect("/users/login");
   } catch (error) {
-    if (error.name === 'SequelizeUniqueConstraintError') {
-      res.render('users/register', {
-        error: 'Username or email already exists',
+    if (error.name === "SequelizeUniqueConstraintError") {
+      res.render("users/register", {
+        error: "Email already exists",
         username: req.body.username,
-        email: req.body.email
+        email: req.body.email,
       });
     } else {
-      res.render('users/register', {
-        error: 'Registration failed. Please try again.',
+      res.render("users/register", {
+        error: "Registration failed. Please try again.",
         username: req.body.username,
-        email: req.body.email
+        email: req.body.email,
       });
     }
   }
 };
 
+exports.login = (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: "/products",
+    failureRedirect: "/users/login",
+    failureFlash: true,
+  })(req, res, next);
+};
+
 exports.me = async (req, res) => {
   try {
-    const user = await User.findByPk(req.session.userId);
-    if (!user) {
-      return res.redirect("/users/login"); 
-    }
-    res.render("users/me", { user });
+    res.render("users/me", { user: req.user });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-exports.login = async (req, res) => {
-  try {
-    const { username, password } = req.body;
-
-    if (!username || !password) {
-      return res.render("users/login", { 
-        error: "Please fill in all fields" 
-      });
-    }
-
-    const user = await User.findOne({ where: { username } });
-    
-    if (user && (await bcrypt.compare(password, user.password))) {
-      req.session.userId = user.id;
-      req.session.username = user.username;
-      
-      return res.redirect("/products");
-    } 
-
-    res.render("users/login", { 
-      error: "Invalid username or password" 
-    });
-
-  } catch (error) {
-    console.error('Login error:', error);
-    res.render("users/login", { 
-      error: "An error occurred. Please try again." 
-    });
-  }
-};
-
 exports.logout = (req, res) => {
-  req.session.destroy((err) => {
+  req.logout((err) => {
     if (err) {
-      console.error('Logout error:', err);
+      return next(err);
     }
-    res.redirect("/");
+    req.flash("success", "Logged out successfully");
+    res.redirect("/users/login");
   });
 };
