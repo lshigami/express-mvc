@@ -10,6 +10,14 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <script>
+      function showAlertAndReload(message) {
+        alert(message);
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
+      }
+    </script>
   </head>
   <body>
     <div class="auth-container">
@@ -18,6 +26,12 @@
           <h1>Welcome Back</h1>
           <p>Sign in to your account</p>
         </div>
+
+        <% if (error.length > 0) { %>
+        <script>
+          showAlertAndReload("<%= error[0] %>");
+        </script>
+        <% } %>
 
         <form action="/users/login" method="POST">
           <div class="form-group">
