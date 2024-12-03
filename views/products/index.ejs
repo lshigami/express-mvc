@@ -12,6 +12,18 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <style>
+      .cart-count {
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 8px;
+        font-size: 12px;
+        position: relative;
+        top: -10px;
+        left: -10px;
+      }
+    </style>
   </head>
   <body>
     <nav class="nav">
@@ -38,6 +50,10 @@
         </a>
       </div>
       <div class="right-links">
+        <a href="/cart" class="cart-link">
+          <i class="fas fa-shopping-cart"></i>
+          <span id="cart-count" class="cart-count">0</span>
+        </a>
         <a href="/users/logout" class="cart-link" onclick="return confirm('Are you sure you want to logout?');">
           <i class="fas fa-sign-out-alt"></i>
           <span>Logout</span>
@@ -134,6 +150,10 @@
                 <i class="fas fa-trash"></i>
               </button>
             </form>
+            <button class="button add-to-cart-button" 
+              onclick="addToCart('<%= product.id %>', '<%= product.name %>', '<%= product.price %>')">
+              <i class="fas fa-cart-plus"></i> Add to Cart
+            </button>
           </div>
         </div>
         <% }) %> <% } else { %>
@@ -160,6 +180,68 @@
         }
       });
     });
+    </script>
+
+    <script>
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+      function updateCartCount() {
+        fetch('/cart/count', {
+          method: 'GET',
+          credentials: 'include', // Quan trọng để gửi cookie session
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const cartCount = document.getElementById("cart-count");
+          cartCount.textContent = data.totalQuantity || 0;
+        })
+        .catch(error => {
+          console.error('Error fetching cart count:', error);
+          // Fallback to 0 if there's an error
+          const cartCount = document.getElementById("cart-count");
+          cartCount.textContent = '0';
+        });
+      }
+
+      function addToCart(id, name, price) {
+        fetch('/cart/add', {
+          method: 'POST',
+          credentials: 'include', // Quan trọng để gửi cookie session
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 
+            productId: id, 
+            quantity: 1 
+          })
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Cập nhật lại số lượng giỏ hàng sau khi thêm sản phẩm
+          updateCartCount();
+          
+          alert("Product added to cart successfully!");
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert("Failed to add product to cart");
+        });
+      }
+    
+      document.addEventListener("DOMContentLoaded", updateCartCount);
     </script>
   </body>
 </html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmation</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #4a90e2;
+        --text-color: #333;
+        --background-color: #f4f7f6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .order-confirmation {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .order-confirmation h1 {
+        color: var(--primary-color);
+        margin-bottom: 15px;
+      }
+
+      .order-details {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      .order-details h2 {
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+
+      .order-details p {
+        margin-bottom: 10px;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      .table th,
+      .table td {
+        border: 1px solid #e0e0e0;
+        padding: 12px;
+        text-align: left;
+      }
+
+      .table thead {
+        background-color: #f2f2f2;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        font-weight: 600;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: #357abd;
+      }
+
+      .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background-color: #545b62;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          margin: 20px;
+          padding: 20px;
+        }
+
+        .table {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="order-confirmation">
+        <h1>Order Confirmation</h1>
+        <p>Thank you for your purchase!</p>
+      </div>
+
+      <div class="order-details">
+        <h2>Order #<%= order.id %></h2>
+        <p><strong>Total Amount:</strong> <%= order.totalAmount %></p>
+        <p><strong>Status:</strong> <%= order.status %></p>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% order.OrderItems.forEach(item => { %>
+            <tr>
+              <td><%= item.Product.name %></td>
+              <td><%= item.quantity %></td>
+              <td><%= item.price %></td>
+              <td><%= item.subtotal %></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="button-container">
+        <a href="/orders/history" class="btn btn-primary">View Order History</a>
+        <a href="/products" class="btn btn-secondary">Back to Products</a>
+      </div>
+    </div>
+  </body>
+</html>
