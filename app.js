@@ -11,6 +11,8 @@ const authRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
+const cartRoutes = require("./routes/cartRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 require("./middlewares/passportConfig")(passport); // Passport config
 
@@ -60,6 +62,8 @@ app.use("/users", authRoutes);
 app.use("/products", require("./middlewares/auth"), productRoutes);
 app.use("/categories", require("./middlewares/auth"), categoryRoutes);
 app.use("/upload", require("./middlewares/auth"), uploadRoutes);
+app.use("/cart", require("./middlewares/auth"), cartRoutes);
+app.use("/orders", require("./middlewares/auth"), orderRoutes);
 
 // Error handling
 app.use((req, res) => {

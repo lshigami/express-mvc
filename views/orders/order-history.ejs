@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order History</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #4a90e2;
+        --text-color: #333;
+        --background-color: #f4f7f6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      h1 {
+        color: var(--primary-color);
+        font-size: 2rem;
+      }
+
+      .back-to-products {
+        padding: 10px 15px;
+        background-color: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      .back-to-products:hover {
+        background-color: #357abd;
+      }
+
+      .order-card {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 10px;
+      }
+
+      .order-details {
+        margin-bottom: 15px;
+      }
+
+      .order-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .order-table th,
+      .order-table td {
+        border: 1px solid #e0e0e0;
+        padding: 10px;
+        text-align: left;
+      }
+
+      .order-table thead {
+        background-color: #f2f2f2;
+      }
+
+      .no-orders {
+        text-align: center;
+        color: #888;
+        padding: 20px;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 15px;
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .back-to-products {
+          margin-top: 10px;
+        }
+
+        .order-table {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Order History</h1>
+        <a href="/products" class="back-to-products">Back to Products</a>
+      </div>
+
+      <div id="order-history-container">
+        <!-- Orders will be dynamically populated -->
+      </div>
+    </div>
+
+    <script>
+      function loadOrderHistory() {
+        const container = document.getElementById("order-history-container");
+
+        fetch("/orders/history", {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((orders) => {
+            if (orders.length === 0) {
+              container.innerHTML = `
+                <div class="no-orders">
+                  <p>No order history found.</p>
+                </div>
+              `;
+              return;
+            }
+
+            const ordersHTML = orders
+              .map(
+                (order) => `
+              <div class="order-card">
+                <div class="order-header">
+                  <h2>Order #${order.id}</h2>
+                  <span>${new Date(order.createdAt).toLocaleString()}</span>
+                </div>
+                <div class="order-details">
+                  <p><strong>Total Amount:</strong> $${order.totalAmount}</p>
+                  <p><strong>Status:</strong> ${order.status}</p>
+                </div>
+                <table class="order-table">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${order.OrderItems.map(
+                      (item) => `
+                      <tr>
+                        <td>${item.Product.name}</td>
+                        <td>${item.quantity}</td>
+                        <td>$${item.price}</td>
+                      </tr>
+                    `
+                    ).join("")}
+                  </tbody>
+                </table>
+              </div>
+            `
+              )
+              .join("");
+
+            container.innerHTML = ordersHTML;
+          })
+          .catch((error) => {
+            console.error("Failed to load order history:", error);
+            container.innerHTML = `
+              <div class="no-orders">
+                <p>Failed to load order history. Please try again later.</p>
+              </div>
+            `;
+          });
+      }
+
+      // Load order history when page loads
+      document.addEventListener("DOMContentLoaded", loadOrderHistory);
+    </script>
+  </body>
+</html>

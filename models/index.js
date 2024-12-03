@@ -27,11 +27,24 @@ db.sequelize = sequelize;
 // Import models
 db.User = require("./user")(sequelize, Sequelize);
 db.Product = require("./product")(sequelize, Sequelize);
-// Import các model khác nếu có
+db.Cart = require("./cart")(sequelize, Sequelize);
+db.Order = require("./order")(sequelize, Sequelize);
+db.OrderItem = require("./orderItem")(sequelize, Sequelize);
 
 // Thiết lập quan hệ giữa các models (nếu cần)
-// Ví dụ:
-// db.User.hasMany(db.Product);
-// db.Product.belongsTo(db.User);
+db.User.hasMany(db.Cart, { foreignKey: "userId" });
+db.Cart.belongsTo(db.User, { foreignKey: "userId" });
+
+db.Product.hasMany(db.Cart, { foreignKey: "productId" });
+db.Cart.belongsTo(db.Product, { foreignKey: "productId" });
+
+db.User.hasMany(db.Order, { foreignKey: "userId" });
+db.Order.belongsTo(db.User, { foreignKey: "userId" });
+
+db.Order.hasMany(db.OrderItem, { foreignKey: "orderId" });
+db.OrderItem.belongsTo(db.Order, { foreignKey: "orderId" });
+
+db.Product.hasMany(db.OrderItem, { foreignKey: "productId" });
+db.OrderItem.belongsTo(db.Product, { foreignKey: "productId" });
 
 module.exports = db;
