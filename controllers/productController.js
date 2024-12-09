@@ -2,7 +2,11 @@ const { Product } = require("../models");
 const { Op } = require("sequelize");
 
 exports.getAllProducts = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = 6; // Số sản phẩm mỗi trang
+  const offset = (page - 1) * limit;
   console.log(req.query);
+  console.log("Is AJAX request:", req.xhr);
   const { name, brand, category, minPrice, maxPrice, description, sort } =
     req.query;
 
@@ -29,9 +33,29 @@ exports.getAllProducts = async (req, res) => {
     } else if (sort === "desc") {
       order = [["price", "DESC"]];
     }
-    const products = await Product.findAll({ where: filters, order: order });
+
+    const { count, rows: products } = await Product.findAndCountAll({
+      where: filters,
+      order: order,
+      limit: limit,
+      offset: offset,
+    });
+
+    const totalPages = Math.ceil(count / limit);
+
+    if (req.xhr || req.headers["x-requested-with"] === "XMLHttpRequest") {
+      return res.json({
+        products,
+        currentPage: page,
+        totalPages,
+        totalProducts: count,
+      });
+    }
+
     res.render("products/index", {
       products,
+      currentPage: page,
+      totalPages,
       sort,
       name,
       brand,
@@ -39,9 +63,13 @@ exports.getAllProducts = async (req, res) => {
       minPrice,
       maxPrice,
       description,
+      originalQuery: req.query,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error fetching products:", error);
+    if (!res.headersSent) {
+      res.status(500).json({ error: error.message });
+    }
   }
 };
 
